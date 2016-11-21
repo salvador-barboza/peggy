@@ -1,22 +1,14 @@
 <dom-module id="peggy-list">
   <template>
-    <div>
-      <paper-input placeholder="tag" id="tag"></paper-input>
-      <paper-input placeholder="price" id="price"></paper-input>
-    </div>
-
     <template is="dom-repeat" items="{{cart}}">
       <div>
-        <button on-tap="_back">back</button>
         <span>[[item.amount]]</span>
         <span>[[item.selected.tag]]</span>
         <span>[[item.selected.price]]</span>
         <span>[[item.subtotal]]</span>
-        <button on-tap="_next">next</button>
-        <button on-tap="_addOption">+</button>
+        <paper-icon-button on-tap="_delete" icon=delete></paper-icon-button>
       </div>
     </template>
-    <h1>{{total}}</h1>
   </template>
   <script>
   Polymer({
@@ -25,18 +17,15 @@
       cart: {
         type: Array,
         notify: true,
-        observer: ['_calcSubtotal']
       },
       total: {
         type: Number,
+        notify: true,
         value: 0
       }
     },
 
     observers: ['_calcSubtotal(cart.*)'],
-    ready: function() {
-      // this._calcSubtotal();
-    },
 
     _cartChanged: function(cart) {
       if(cart.path.split('.')[2] == 'subtotal')
@@ -52,21 +41,25 @@
       }, 0));
     },
 
-    _next: function(e) {
-      e.model.item.next();
-      this.notifyPath(`cart.${e.model.index}.selected`);
-      this.notifyPath(`cart.${e.model.index}.subtotal`);
+    _delete: function(e) {
+      this.fire('delete', {index: e.model.index});
     },
+    // _addOption: function(e) {
+    //   e.model.item.addOption({tag: this.$.tag.value, price: this.$.price.value});
+    //   this.notifyPath(`cart.${e.model.index}.options`);
+    // },
+    // _next: function(e) {
+    //   e.model.item.next();
+    //   this.notifyPath(`cart.${e.model.index}.selected`);
+    //   this.notifyPath(`cart.${e.model.index}.subtotal`);
+    // },
+    //
+    // _back: function(e) {
+    //   e.model.item.back();
+    //   this.notifyPath(`cart.${e.model.index}.selected`);
+    //   this.notifyPath(`cart.${e.model.index}.subtotal`);
+    // },
 
-    _back: function(e) {
-      e.model.item.back();
-      this.notifyPath(`cart.${e.model.index}.selected`);
-      this.notifyPath(`cart.${e.model.index}.subtotal`);
-    },
-    _addOption: function(e) {
-      e.model.item.addOption({tag: this.$.tag.value, price: this.$.price.value});
-      this.notifyPath(`cart.${e.model.index}.options`);
-    }
   });
   </script>
 </dom-module>

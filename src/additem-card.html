@@ -1,0 +1,52 @@
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+
+<dom-module id="additem-card">
+<style>
+  :host {
+    display: flex;
+    align-items: center;
+    margin: 8px auto;
+    padding: 4px;
+    max-width: 500px;
+
+    background-color: #FFFFFF;
+    box-shadow: 1px 2px 4px #a1a1a1;
+    border-radius: 2px;
+  }
+
+  paper-input {
+    margin: 0 4px 0 4px;
+  }
+
+  #tag {
+    flex: 6 300px;
+  }
+  #price {
+    flex: 1 100px;
+  }
+  #amount {
+    flex: 1 100px;
+  }
+
+</style>
+<template>
+  <paper-input placeholder="tag" id="tag"></paper-input>
+  <paper-input placeholder="price" id="price" type="number"></paper-input>
+  <paper-input placeholder="amount" id="amount" type="number"></paper-input>
+  <paper-icon-button on-tap="_addItem" icon="add"/>
+</template>
+<script>
+  Polymer({
+    is: 'additem-card',
+    _addItem: function() {
+      let details = {
+        tag: this.$.tag.value,
+        amount: this.$.amount.value,
+        price: this.$.price.value
+      }
+      this.fire('add', details);
+    }
+  });
+</script>
+</dom-module>
