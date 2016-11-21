@@ -15,8 +15,8 @@ onNextOption: function(e) {
 ```
 
 ### Discoveries
-- [`arrayDelete`](https://github.com/Polymer/polymer/blob/master/src/standard/utils.html#L305).
-> Removes an item from an array, if it exists. If the array is specified by path, a change notification is generated, so that observers, data bindings and computed properties watching that path can update.
+- [`arrayDelete`](https://github.com/Polymer/polymer/blob/master/src/standard/utils.html#L305). 
+_Removes an item from an array, if it exists. If the array is specified by path, a change notification is generated, so that  observers, data bindings and computed properties watching that path can update._
 
 ### Learned
 - Not bubbling an event causes it to be trapped inside the emitter.
