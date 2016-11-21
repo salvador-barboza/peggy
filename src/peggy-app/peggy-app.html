@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../peggy-data/peggy-data.html">
-<link rel="import" href="../peggy-list.html">
+<link rel="import" href="../peggy-list/peggy-list.html">
 <link rel="import" href="../additem-card.html">
 
 <link rel="import" href="../imports.html">
@@ -22,7 +22,7 @@
     </paper-toolbar>
 
     <additem-card on-add="_addItem"></additem-card>
-    <peggy-list id="list" cart="{{cart}}" total="{{total}}" on-delete="_deleteItem"></peggy-list>
+    <peggy-list id="list" cart="[[cart]]" total="{{total}}" on-delete="_deleteItem"></peggy-list>
   </template>
 
 	<script>
@@ -47,7 +47,7 @@
 			},
 
 			_deleteItem: function(e) {
-				this.data.deleteItem(e.detail.index);
+				this.data.deleteItem(e.detail.item);
 			}
 
 		});

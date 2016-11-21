@@ -1,18 +1,22 @@
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/editor-icons.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 
 <dom-module id="additem-card">
 <style>
   :host {
-    display: flex;
-    align-items: center;
+    display: block;
     margin: 8px auto;
-    padding: 4px;
     max-width: 500px;
-
     background-color: #FFFFFF;
     box-shadow: 1px 2px 4px #a1a1a1;
     border-radius: 2px;
+  }
+
+  #container {
+    display: flex;
+    align-items: center;
+    padding: 7px;
   }
 
   paper-input {
@@ -31,10 +35,13 @@
 
 </style>
 <template>
-  <paper-input placeholder="tag" id="tag"></paper-input>
-  <paper-input placeholder="price" id="price" type="number"></paper-input>
-  <paper-input placeholder="amount" id="amount" type="number"></paper-input>
-  <paper-icon-button on-tap="_addItem" icon="add"/>
+  <div id="container">
+    <paper-input placeholder="tag" id="tag"></paper-input>
+    <paper-input placeholder="price" id="price" type="number"></paper-input>
+    <paper-input placeholder="amount" id="amount" type="number"></paper-input>
+    <paper-icon-button on-tap="_addItem" icon="add"/>
+  </div>
+
 </template>
 <script>
   Polymer({

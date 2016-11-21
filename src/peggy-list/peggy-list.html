@@ -1,0 +1,56 @@
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="./list-item.html">
+<dom-module id="peggy-list">
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+
+      max-width: 500px;
+      margin: 8px auto;
+
+      background-color: #FFFFFF;
+      box-shadow: 1px 2px 4px #a1a1a1;
+      border-radius: 2px;
+    }
+  </style>
+  <template>
+    <template is="dom-repeat" items="{{cart}}">
+      <div class="card">
+        <list-item item="[[item]]"></list-item>
+      </div>
+    </template>
+  </template>
+  <script>
+  Polymer({
+    is: 'peggy-list',
+    properties: {
+      cart: {
+        type: Array,
+      },
+      total: {
+        type: Number,
+        notify: true,
+        value: 0
+      }
+    },
+
+    observers: ['_cartChanged(cart.*)'],
+
+    _cartChanged: function(cart) {
+      if(cart.path.split('.')[1] == 'length')
+        this._calcTotal();
+    },
+    _calcTotal: function() {
+      if(!this.cart)
+       return;
+
+      this.set('total', this.cart.reduce((a, b) => {
+        return a + b.subtotal;
+      }, 0));
+    }
+  });
+  </script>
+</dom-module>

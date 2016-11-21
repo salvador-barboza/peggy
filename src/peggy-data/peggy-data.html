@@ -12,26 +12,15 @@
           readOnly: true,
         }
       },
-      ready: function() {
-        this.addItem('queso', 10, 1);
-      },
-
       addItem: function(tag, amount, price) {
         let item = new Item(amount, {tag: tag, price: price});
         if (item != undefined)
           this.push('cart', item);
       },
+      
+      deleteItem: function(item) {
+        this.arrayDelete('cart', item);
 
-      updateItem: function() {
-        //
-      },
-
-      deleteItem: function(index) {
-        this.splice('cart', index, 1);
-
-      },
-      _itemAdded: function(item) {
-        // console.log("D");
       }
     });
   </script>

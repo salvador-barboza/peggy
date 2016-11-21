@@ -1,0 +1,51 @@
+<dom-module id="list-item">
+	<style>
+		:host {
+			display: flex;
+			align-items: center;
+			height: 48px;
+			padding: 8px 16px;
+			border: 1px solid black;
+		}
+	</style>
+	<template>
+    <content></content>
+    <span>[[item.selected.tag]]  $[[item.selected.price]] x [[item.amount]] = [[item.subtotal]]</span>
+  <paper-icon-button on-tap="_delete" icon="delete"></paper-icon-button>
+  <paper-icon-button on-tap="_edit" icon="editor:mode-edit"></paper-icon-button>
+</template>
+	<script>
+		Polymer({
+			is: 'list-item',
+      properties: {
+        item: {
+          type: Object
+        },
+      },
+      _delete: function(e) {
+				this.fire('delete', {item: this.item});
+      },
+      _edit: function() {
+        this.fire('edit', {item: this.item});
+      },
+
+          //Para esto pude haber un observer nomas en el selectedIndex
+          //y que lo compute
+          // _addOption: function(e) {
+          //   e.model.item.addOption({tag: this.$.tag.value, price: this.$.price.value});
+          //   this.notifyPath(`cart.${e.model.index}.options`);
+          // },
+          // _next: function(e) {
+          //   e.model.item.next();
+          //   this.notifyPath(`cart.${e.model.index}.selected`);
+          //   this.notifyPath(`cart.${e.model.index}.subtotal`);
+          // },
+          //
+          // _back: function(e) {
+          //   e.model.item.back();
+          //   this.notifyPath(`cart.${e.model.index}.selected`);
+          //   this.notifyPath(`cart.${e.model.index}.subtotal`);
+          // },
+		});
+	</script>
+</dom-module>
