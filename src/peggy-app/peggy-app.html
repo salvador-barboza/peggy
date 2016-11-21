@@ -1,0 +1,52 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../peggy-data/peggy-data.html">
+<link rel="import" href="../peggy-list.html">
+
+<link rel="import" href="../imports.html">
+
+<dom-module id="peggy-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        font-family: 'roboto';
+      }
+    </style>
+    <peggy-data id="data" cart="{{cart}}"></peggy-data>
+    <paper-toolbar>
+        <div id="title">Peggy</div>
+    </paper-toolbar>
+
+    <div>
+      <paper-input placeholder="tag" id="tag"></paper-input>
+      <paper-input placeholder="price" id="price"></paper-input>
+      <paper-input placeholder="amount" id="amount"></paper-input>
+      <button on-tap="_addItem">add</button>
+    </div>
+
+    <peggy-list id="list" cart="{{cart}}"></peggy-list>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'peggy-app',
+
+      properties: {
+        cart: Array
+      },
+
+      ready: function() {
+        this.data = this.$.data;
+      },
+
+      _addItem: function() {
+        let tag = this.$.tag.value;
+        let price = this.$.price.value;
+        let amount = this.$.amount.value;
+        this.data.addItem(tag, amount, price);
+      }
+
+    });
+  </script>
+</dom-module>
