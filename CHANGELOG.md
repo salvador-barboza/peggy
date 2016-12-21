@@ -3,16 +3,27 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
-## [unreleased] - 2016-11-21
+## v0.2.0 - 2016-12-21
 ### Added
 - A dev log
 - `<list-item>` to handle items inside `<peggy-list>`.
+- Edit behavior
+
+### Removed
+- `Item` class was removed temporarily from peggy-data. A simple object literal is used
+instead. This is because the multi-option functionality is deprecated.
+
 ### Changed
 - Now `<peggy-list>` is located inside `/peggy-list`.
--
+- Added firebase things and build folder to .gitignore
+- Clean `._addItem()` and `<additem-card>` to use a single object instead of 3 values.
+- Clean UI
+- The total is now computed inside `<peggy-data>`.
+- Subtotal of items is now computed inside `list-item`.
+
 ### Fixed
 - Removing an item from `<list-item>` now works.
-- _total_ was updated based on a wrong property. Now it observes `cart.length`, which changes when an _item_ is added or removed. In the future, this should also observe `cart.#.selectedIndex` to update when a new _option_ is selected.
+- Fixed wrong imports in `<peggy-list>`
 
 
 ## v0.1.0 - 2016-11-20
@@ -24,7 +35,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Added `imports.html` to contain all imports that are shared by many components.
 - Started this change log.
 - Added `/bower_components` to `.gitignore`
+
 ### Changed
 - Changed the layout to be clearer. Also there is now the total on the toolbar.
+
 ### Removed
 - Removed partial implementation of adding options to an item to focus on making the other things work great first.

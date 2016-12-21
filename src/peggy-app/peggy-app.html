@@ -14,7 +14,7 @@
       }
 
     </style>
-    <peggy-data id="data" cart="{{cart}}"></peggy-data>
+    <peggy-data id="data" cart="{{cart}}" total="{{total}}"></peggy-data>
 
     <paper-toolbar>
       <span class="title">Peggy</span>
@@ -22,7 +22,7 @@
     </paper-toolbar>
 
     <additem-card on-add="_addItem"></additem-card>
-    <peggy-list id="list" cart="[[cart]]" total="{{total}}" on-delete="_deleteItem"></peggy-list>
+    <peggy-list id="list" cart="[[cart]]" on-delete="_deleteItem" on-update="_updateItem"></peggy-list>
   </template>
 
 	<script>
@@ -40,10 +40,11 @@
 			},
 
 			_addItem: function(e) {
-				let tag = e.detail.tag;
-				let price = e.detail.price;
-				let amount = e.detail.amount;
-				this.data.addItem(tag, amount, price);
+				this.data.addItem(e.detail);
+			},
+
+			_updateItem: function(e) {
+				this.data.updateItem(e.detail.item, e.detail.value);
 			},
 
 			_deleteItem: function(e) {

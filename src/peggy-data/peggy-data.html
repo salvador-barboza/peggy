@@ -1,4 +1,3 @@
-<link rel="import" href="./helper-classes.html">
 <dom-module id-"peggy-data">
   <script>
     Polymer({
@@ -10,17 +9,36 @@
           value: [],
           notify: true,
           readOnly: true,
+        },
+        total: {
+          type: Number,
+          value: 0,
+          notify: true,
         }
       },
-      addItem: function(tag, amount, price) {
-        let item = new Item(amount, {tag: tag, price: price});
-        if (item != undefined)
-          this.push('cart', item);
+      addItem: function(value) {
+        this.push('cart', value);
+        this._computeTotal();
       },
-      
+
       deleteItem: function(item) {
         this.arrayDelete('cart', item);
+        this._computeTotal();
+      },
 
+      updateItem: function(item, value) {
+        let index = this.cart.indexOf(item);
+        this.set(`cart.${index}`, value);
+        this._computeTotal();
+      },
+
+      _computeTotal: function() {
+        if(!this.cart)
+         return;
+
+        this.set('total', this.cart.reduce((a, b) => {
+          return a + (b.amount * b.price);
+        }, 0));
       }
     });
   </script>

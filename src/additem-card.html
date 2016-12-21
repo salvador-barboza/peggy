@@ -36,9 +36,9 @@
 </style>
 <template>
   <div id="container">
-    <paper-input placeholder="tag" id="tag"></paper-input>
-    <paper-input placeholder="price" id="price" type="number"></paper-input>
-    <paper-input placeholder="amount" id="amount" type="number"></paper-input>
+    <paper-input placeholder="tag" id="tag" value="{{tag}}"></paper-input>
+    <paper-input placeholder="price" id="price" type="number" value="{{price}}"></paper-input>
+    <paper-input placeholder="amount" id="amount" type="number" value="{{amount}}"></paper-input>
     <paper-icon-button on-tap="_addItem" icon="add"/>
   </div>
 
@@ -46,11 +46,16 @@
 <script>
   Polymer({
     is: 'additem-card',
+    properties: {
+      tag: String,
+      amount: Number,
+      price: Number
+    },
     _addItem: function() {
       let details = {
-        tag: this.$.tag.value,
-        amount: this.$.amount.value,
-        price: this.$.price.value
+        tag: this.tag,
+        amount: this.amount,
+        price: this.price
       }
       this.fire('add', details);
     }
