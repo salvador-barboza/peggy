@@ -1,3 +1,4 @@
+<script src="../../bower_components/pouchdb/dist/pouchdb.min.js"></script>
 <dom-module id-"peggy-data">
   <script>
     Polymer({
@@ -7,29 +8,57 @@
         cart: {
           type: Array,
           value: [],
-          notify: true,
-          readOnly: true,
+          notify: true
         },
+
         total: {
           type: Number,
           value: 0,
           notify: true,
-        }
+        },
+
+        db: Object
       },
+      attached: function() {
+        this.db = new PouchDB('peggy');
+        PouchDB.debug.enable('*');
+
+        this.db.allDocs({include_docs: true, descending: true}, (err, doc) => {
+          this.set('cart', doc.rows.map((row) => {
+            return row.doc;
+          }));
+          this._computeTotal();
+        });
+      },
+
       addItem: function(value) {
-        this.push('cart', value);
+        let index = this.push('cart', value) - 1;
         this._computeTotal();
+
+        value._id = new Date().toISOString();
+        this.db.put(value).then((res) => {
+          this.set(`cart.${index}._rev`, res.rev);
+        });
       },
 
       deleteItem: function(item) {
         this.arrayDelete('cart', item);
         this._computeTotal();
+
+        this.db.remove(item);
       },
 
       updateItem: function(item, value) {
         let index = this.cart.indexOf(item);
+        value._id = item._id;
+        value._rev = item._rev;
+
         this.set(`cart.${index}`, value);
         this._computeTotal();
+
+        this.db.put(value).then((res) => {
+          this.set(`cart.${index}._rev`, res.rev);
+        });
       },
 
       _computeTotal: function() {

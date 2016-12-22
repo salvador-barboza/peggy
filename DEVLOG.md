@@ -1,6 +1,11 @@
 # Log
 Discoveries, mistakes and other things are here.
 
+## 2016-12-21
+### TODO:
+- Add pouchdb to `<peggy-data>`
+- Add tests
+
 ## 2016-12-20
 ### TODO:
 - Add edit functionality to`list-item`.
@@ -19,7 +24,6 @@ _toggleEdit: function(e) {
     currentEditItem._editing = true;
 }  
 ```
-- Add pouchdb to `<peggy-data>`
 
 ### etc:
 - It would be great to implement a theseractjs element. A simple visor to tap on the price, etc.

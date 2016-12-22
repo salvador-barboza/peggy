@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
+## [unreleased] - 2016-12-21
+### Added
+- Added PouchDB in `<peggy-data>`
 ## v0.2.0 - 2016-12-21
 ### Added
 - A dev log
