@@ -1,25 +1,60 @@
 <dom-module id="list-item">
 	<style>
 		:host {
-			height: 48px;
-			padding: 8px 16px;
+			height: 60px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
 		}
 		.card {
 			display: flex;
+			flex: 1;
 			align-items: center;
+			justify-content: space-between;
+			padding-left: 16px;
+		}
+		#text {
+			font-size: 13px;
+			display: flex;
+			flex-direction: column;
+		}
+		#actions {
+			padding-right: 8px;
+		}
+
+		#tag {
+			flex: 2;
+		}
+		#price {
+			flex: 1;
+		}
+		#amount {
+			flex: 1;
+		}
+		#updateButton {
+			margin-right: 8px;
+		}
+		.input {
+			margin: 4px;
 		}
 	</style>
 	<template>
 		<div hidden="[[_editing]]" class="card">
-			<span>[[item.tag]]  $[[item.price]] x [[item.amount]] = [[_calcSubTotal(item.price, item.amount)]]</span>
-			<paper-icon-button on-tap="_delete" icon="delete"></paper-icon-button>
-			<paper-icon-button on-tap="_edit" icon="editor:mode-edit"></paper-icon-button>
+			<div id="text">
+				<span id="main">[[item.tag]]</span>
+				<span id="secondary">  $[[item.price]] x [[item.amount]] = $[[_calcSubTotal(item.price, item.amount)]]</span>
+			</div>
+			<div id="actions">
+				<paper-icon-button on-tap="_delete" icon="delete"></paper-icon-button>
+				<paper-icon-button on-tap="_edit" icon="editor:mode-edit"></paper-icon-button>
+			</div>
 	 	</div>
 		<div hidden="[[!_editing]]" class="card">
-			<paper-input id="tag"></paper-input>
-			<paper-input id="price"></paper-input>
-			<paper-input id="amount"></paper-input>
-			<paper-icon-button on-tap="_update" icon="check"></paper-icon-button>
+				<paper-input id="tag" class="input"></paper-input>
+				<paper-input id="price" class="input" type="number"></paper-input>
+				<paper-input id="amount" class="input" type="number"></paper-input>
+			<paper-icon-button on-tap="_update" icon="check" id="updateButton"></paper-icon-button>
 		</div>
 	</template>
 	<script>
@@ -58,7 +93,7 @@
 			},
 
 			_calcSubTotal: function(price, amount) {
-				return price * amount;
+				return Math.ceil(price * amount * 100) / 100;
 			}
 		});
 	</script>

@@ -7,11 +7,19 @@
 
 <dom-module id="peggy-app">
 	<template>
-    <style>
+    <style is="custom-style">
+
       :host {
         display: block;
         font-family: 'roboto';
       }
+
+			paper-toolbar {
+				--paper-toolbar-background: #FF5252;
+				--paper-toolbar-title: {
+					overflow: visible;
+				};
+			}
 
     </style>
     <peggy-data id="data" cart="{{cart}}" total="{{total}}"></peggy-data>

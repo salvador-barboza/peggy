@@ -1,4 +1,4 @@
-<script src="../../bower_components/pouchdb/dist/pouchdb.min.js"></script>
+<script src="/../../bower_components/pouchdb/dist/pouchdb.min.js"></script>
 <dom-module id-"peggy-data">
   <script>
     Polymer({
@@ -32,12 +32,12 @@
       },
 
       addItem: function(value) {
-        let index = this.push('cart', value) - 1;
+        this.unshift('cart', value);
         this._computeTotal();
 
         value._id = new Date().toISOString();
         this.db.put(value).then((res) => {
-          this.set(`cart.${index}._rev`, res.rev);
+          this.set(`cart.${0}._rev`, res.rev);
         });
       },
 
@@ -65,9 +65,12 @@
         if(!this.cart)
          return;
 
-        this.set('total', this.cart.reduce((a, b) => {
+        let total = this.cart.reduce((a, b) => {
           return a + (b.amount * b.price);
-        }, 0));
+        }, 0);
+
+        let roundTotal = Math.ceil(total * 100) / 100;
+        this.set('total', roundTotal);
       }
     });
   </script>
