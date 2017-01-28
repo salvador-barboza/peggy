@@ -11,6 +11,7 @@
     background-color: #FFFFFF;
     box-shadow: 1px 2px 4px #a1a1a1;
     border-radius: 2px;
+
   }
 
   #container {
@@ -29,17 +30,22 @@
   #price {
     flex: 1 100px;
   }
-  #amount {
-    flex: 1 100px;
+  #quantity {
+    flex: 1 50px;
+  }
+  #add {
+    flex: 0 0 auto;
   }
 
 </style>
 <template>
   <div id="container">
-    <paper-input placeholder="tag" id="tag" value="{{tag}}"></paper-input>
-    <paper-input placeholder="price" id="price" type="number" value="{{price}}"></paper-input>
-    <paper-input placeholder="amount" id="amount" type="number" value="{{amount}}"></paper-input>
-    <paper-icon-button on-tap="_addItem" icon="add"/>
+    <paper-input label="Tag" id="tag" value="{{tag}}"></paper-input>
+    <paper-input placeholder="0.00" id="price" type="number" value="{{price}}">
+      <div prefix>$</div>
+    </paper-input>
+    <paper-input placeholder="1" id="quantity" type="number" value="{{quantity}}"></paper-input>
+    <paper-icon-button on-tap="_addItem" icon="add" id="add"/>
   </div>
 
 </template>
@@ -48,16 +54,25 @@
     is: 'additem-card',
     properties: {
       tag: String,
-      amount: Number,
+      quantity: Number,
       price: Number
     },
+
+    _clear: function() {
+      this.tag = undefined;
+      this.quantity = undefined;
+      this.price = undefined;
+    },
+
     _addItem: function() {
       let details = {
         tag: this.tag,
-        amount: this.amount,
+        quantity: this.quantity || 1,
         price: this.price
       }
+
       this.fire('add', details);
+      this._clear();
     }
   });
 </script>

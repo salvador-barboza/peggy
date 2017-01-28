@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
+
+## v0.3.1 2016-01-28
+### Changed
+- Changed amount to quantity.
+### Fixed
+- Clear card when 'add' event fired.
+
 ## v0.3.0 - 2016-12-29
 ### Added
 - Added PouchDB in `<peggy-data>`

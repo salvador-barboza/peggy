@@ -29,7 +29,7 @@
 		#price {
 			flex: 1;
 		}
-		#amount {
+		#quantity {
 			flex: 1;
 		}
 		#updateButton {
@@ -43,7 +43,7 @@
 		<div hidden="[[_editing]]" class="card">
 			<div id="text">
 				<span id="main">[[item.tag]]</span>
-				<span id="secondary">  $[[item.price]] x [[item.amount]] = $[[_calcSubTotal(item.price, item.amount)]]</span>
+				<span id="secondary">  $[[item.price]] x [[item.quantity]] = $[[_calcSubTotal(item.price, item.quantity)]]</span>
 			</div>
 			<div id="actions">
 				<paper-icon-button on-tap="_delete" icon="delete"></paper-icon-button>
@@ -53,7 +53,7 @@
 		<div hidden="[[!_editing]]" class="card">
 				<paper-input id="tag" class="input"></paper-input>
 				<paper-input id="price" class="input" type="number"></paper-input>
-				<paper-input id="amount" class="input" type="number"></paper-input>
+				<paper-input id="quantity" class="input" type="number"></paper-input>
 			<paper-icon-button on-tap="_update" icon="check" id="updateButton"></paper-icon-button>
 		</div>
 	</template>
@@ -76,7 +76,7 @@
 				//discard unsaved changes.
 				this.$.tag.value = this.item.tag;
 				this.$.price.value = this.item.price;
-				this.$.amount.value = this.item.amount;
+				this.$.quantity.value = this.item.quantity;
 
 				this._editing = true;
 				this.fire('edit');
@@ -88,12 +88,12 @@
 					value: {
 						tag: this.$.tag.value,
 						price: this.$.price.value,
-						amount: this.$.amount.value}
+						quantity: this.$.quantity.value}
 					});
 			},
 
-			_calcSubTotal: function(price, amount) {
-				return Math.ceil(price * amount * 100) / 100;
+			_calcSubTotal: function(price, quantity) {
+				return Math.ceil(price * quantity * 100) / 100;
 			}
 		});
 	</script>

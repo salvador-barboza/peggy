@@ -1,9 +1,8 @@
-<script src="/../../bower_components/pouchdb/dist/pouchdb.min.js"></script>
+<script src="../../bower_components/pouchdb/dist/pouchdb.js"></script>
 <dom-module id-"peggy-data">
   <script>
     Polymer({
       is: 'peggy-data',
-
       properties: {
         cart: {
           type: Array,
@@ -66,7 +65,7 @@
          return;
 
         let total = this.cart.reduce((a, b) => {
-          return a + (b.amount * b.price);
+          return a + (b.quantity * b.price);
         }, 0);
 
         let roundTotal = Math.ceil(total * 100) / 100;
