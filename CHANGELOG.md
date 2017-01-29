@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Added
 - Restore deleted items.
 - App manifest
+
 ## v0.3.1 2016-01-28
 ### Changed
 - Changed amount to quantity.

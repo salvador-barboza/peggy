@@ -1,2 +1,2 @@
 # \<peggy\>
-Shopping in real life, simplified.
+Shopping cart assist
