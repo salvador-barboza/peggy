@@ -10,6 +10,7 @@
     <style is="custom-style">
 
       :host {
+				user-select: none;
         display: block;
         font-family: 'roboto';
       }
@@ -19,6 +20,12 @@
 				--paper-toolbar-title: {
 					overflow: visible;
 				};
+			}
+
+			#toastAction{
+				float: right;
+				font-weight: 600;
+				color: #FF5252;
 			}
 
     </style>
@@ -31,6 +38,9 @@
 
     <additem-card on-add="_addItem"></additem-card>
     <peggy-list id="list" cart="[[cart]]" on-delete="_deleteItem" on-update="_updateItem"></peggy-list>
+		
+		<paper-toast id="toast" duration="2000" >
+			<span id="toastAction" on-tap="_undo">UNDO</span>
   </template>
 
 	<script>
@@ -57,8 +67,14 @@
 
 			_deleteItem: function(e) {
 				this.data.deleteItem(e.detail.item);
-			}
+				this.$.toast.text = `Deleted ${e.detail.item.tag}`;
+				this.$.toast.show();								
+			},
 
+			_undo: function() {
+				this.$.toast.close();
+				this.data.undo();
+			}
 		});
 	</script>
 </dom-module>

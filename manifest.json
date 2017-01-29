@@ -1,7 +1,12 @@
 {
   "name": "peggy",
-  "short_name": "peggy",
-  "description": "Shopping in real life, simplified.",
+  "short_name": "peggy",  
   "start_url": "/",
-  "display": "standalone"
+  "display": "standalone",
+  "theme_color": "#FF5252",
+  "icons": [{
+    "src": "icons/icon144.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  }]
 }

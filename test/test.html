@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../src/additem-card.html">
+</head>
+<body>
+  <test-fixture id="card">
+    <template>
+      <additem-card></additem-card>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<additem-card>', function() {
+      let card;
+
+      test('Fires add event', function(done) {
+        let card = fixture('card');
+        let tag = card.querySelector('#tag');
+        card.tag = 'queso';
+
+        flush(function() {
+          assert.equal(tag.value, 'queso');
+          done();
+        });
+      });
+    });
+  </script>
+</body>
+</html>

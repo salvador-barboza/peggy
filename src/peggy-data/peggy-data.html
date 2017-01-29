@@ -1,4 +1,4 @@
-<script src="../../bower_components/pouchdb/dist/pouchdb.js"></script>
+<script src="/../../bower_components/pouchdb/dist/pouchdb.js"></script>
 <dom-module id-"peggy-data">
   <script>
     Polymer({
@@ -10,13 +10,17 @@
           notify: true
         },
 
+        //deletedItems: para los borrados
+        
         total: {
           type: Number,
           value: 0,
           notify: true,
         },
 
-        db: Object
+        db: Object,
+        //Delete or not item.
+        undoDelete: Boolean 
       },
       attached: function() {
         this.db = new PouchDB('peggy');
@@ -41,10 +45,26 @@
       },
 
       deleteItem: function(item) {
+        this.undoDelete = false;
+        this.deletedItem = {
+          index: this.cart.indexOf(item),
+          item: item
+        };
+
         this.arrayDelete('cart', item);
         this._computeTotal();
 
-        this.db.remove(item);
+        setTimeout(() => {
+          if (this.undoDelete === false)
+            this.db.remove(item)
+        }, 2500);
+      },
+      
+      undo: function() {
+        this.undoDelete = true;          
+        this.splice('cart', this.deletedItem.index, 0, this.deletedItem.item);                      
+        this.deletedItem = undefined;
+        this._computeTotal();
       },
 
       updateItem: function(item, value) {

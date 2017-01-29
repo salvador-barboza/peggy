@@ -1,6 +1,7 @@
 module.exports = {
   staticFileGlobs: [
     '/index.html',
+    '/icons/**/*',
     '/manifest.json',
     '/bower_components/**/*',
   ],
