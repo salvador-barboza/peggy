@@ -40,38 +40,43 @@
 
         value._id = new Date().toISOString();
         this.db.put(value).then((res) => {
-          this.set(`cart.${0}._rev`, res.rev);
+          this.set(`cart.${0}._rev`, res.rev)
         });
       },
 
       deleteItem: function(item) {
-        this.undoDelete = false;
-        this.deletedItem = {
-          index: this.cart.indexOf(item),
-          item: item
-        };
+        this.lastDeletedItem = item;
+        this.lastDeletedIndex = this.cart.indexOf(item);
+        this.lastDeleteCanceled = false;
+
 
         this.arrayDelete('cart', item);
         this._computeTotal();
 
         setTimeout(() => {
-          if (this.undoDelete === false)
-            this.db.remove(item)
+          if (this.lastDeletedItem._id === item._id && this.lastDeleteCanceled === true)
+            return;
+
+
+          //todo: fix esto
+          this.db.remove(item);
+
+
         }, 2500);
       },
       
       undo: function() {
-        this.undoDelete = true;          
-        this.splice('cart', this.deletedItem.index, 0, this.deletedItem.item);                      
-        this.deletedItem = undefined;
+        this.lastDeleteCanceled = true;
+        this.splice('cart', this.lastDeletedindex, 0, this.lastDeletedItem);
         this._computeTotal();
       },
 
       updateItem: function(item, value) {
         let index = this.cart.indexOf(item);
+
         value._id = item._id;
         value._rev = item._rev;
-
+        console.log(item, value);
         this.set(`cart.${index}`, value);
         this._computeTotal();
 

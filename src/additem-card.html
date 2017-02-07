@@ -68,7 +68,7 @@
       let details = {
         tag: this.tag,
         quantity: this.quantity || 1,
-        price: this.price
+        price: this.price || 0
       }
 
       this.fire('add', details);

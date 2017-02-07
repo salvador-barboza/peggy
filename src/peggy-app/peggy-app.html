@@ -67,8 +67,13 @@
 
 			_deleteItem: function(e) {
 				this.data.deleteItem(e.detail.item);
+				this.$.toast.hide();
 				this.$.toast.text = `Deleted ${e.detail.item.tag}`;
-				this.$.toast.show();								
+				this.$.toast.show();
+
+				//agregar item para delete a un objeto. esperar 2 segundos o algo asi
+				//si se pica undo, el objeto aqui se pone undefined, y hay una funcion que
+				//:( observers
 			},
 
 			_undo: function() {

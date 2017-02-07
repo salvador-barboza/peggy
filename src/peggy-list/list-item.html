@@ -40,14 +40,13 @@
 		}
 	</style>
 	<template>
-		<div hidden="[[_editing]]" class="card">
+		<div hidden="[[_editing]]" class="card" on-tap="_edit">
 			<div id="text">
 				<span id="main">[[item.tag]]</span>
 				<span id="secondary">  $[[item.price]] x [[item.quantity]] = $[[_calcSubTotal(item.price, item.quantity)]]</span>
 			</div>
 			<div id="actions">
 				<paper-icon-button on-tap="_delete" icon="delete"></paper-icon-button>
-				<paper-icon-button on-tap="_edit" icon="editor:mode-edit"></paper-icon-button>
 			</div>
 	 	</div>
 		<div hidden="[[!_editing]]" class="card">
@@ -69,10 +68,17 @@
 					value: false
 				}
       },
+			attached: function() {
+				// this.addEventListener('tap', this._edit);
+			},
+
       _delete: function(e) {
 				this.fire('delete', {item: this.item});
       },
-      _edit: function() {
+      _edit: function(e) {
+				// if (e.target.tagName != 'DIV') return;
+				if (!e.target.classList.contains('card')) return;
+
 				//discard unsaved changes.
 				this.$.tag.value = this.item.tag;
 				this.$.price.value = this.item.price;
